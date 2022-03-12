@@ -1,6 +1,13 @@
 <?php
-/**
- *
+
+/** 
+ * Handle the access to the routes requested
+ * 
+ * @author Roiner Adrianza <roineradrianzap@gmail.com>
+ * 
+ * @version Release: 1.0.0 
+ * 
+ * @access public
  */
 class Routes
 {
@@ -531,18 +538,29 @@ class Routes
             $this->render();
         }
     }
+
+    /** 
+     * Render the view for the route requested
+     * 
+     * @return void view rendered
+     * 
+     * @access public
+     */
     public function render()
     {
-        $view = new Template("app", [
-            "title" => $this->title,
-            "content" => $this->content,
-            "header" => $this->header,
-            "admin_header" => $this->admin_header,
-            "nav" => $this->nav,
-            "styles" => $this->styles,
-            "scripts" => $this->scripts,
-            "footer" => $this->footer,
-        ]);
+        $view = new Template(
+            "app", 
+            [
+                "title" => $this->title,
+                "content" => $this->content,
+                "header" => $this->header,
+                "admin_header" => $this->admin_header,
+                "nav" => $this->nav,
+                "styles" => $this->styles,
+                "scripts" => $this->scripts,
+                "footer" => $this->footer,
+            ]
+        );
         echo $view;
     }
 }

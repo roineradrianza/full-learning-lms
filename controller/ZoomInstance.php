@@ -1,16 +1,23 @@
 <?php
 
- /**
-  * 
-  */
+/** 
+ * Zoom class to handle zoom api
+ * 
+ * @author Roiner Adrianza <roineradrianzap@gmail.com>
+ * 
+ * @version Release: 1.0.0 
+ * 
+ * @access public
+ */
 class ZoomInstance
- {
-  private $token = '';
-  function __construct() {
+{
 
+  function __construct()
+  {
   }
-  
-  public function create_meeting($data = []) {
+
+  public function create_meeting($data = [])
+  {
     $client = new GuzzleHttp\Client(['base_uri' => 'https://api.zoom.us']);
     extract($data);
     if (!isset($zoom_jwt)) return false;
@@ -20,30 +27,26 @@ class ZoomInstance
     $method = empty($meeting_id) ? "POST" : "PATCH";
     try {
       $response = $client->request($method, "/v2/${url}", [
-        "headers" => [
-            "Authorization" => "Bearer ". $zoom_jwt
-        ],
-        'json' => [
-          "topic" => $topic,
-          "type" => 2,
-          'agenda' => $agenda,
-          "start_time" => $start_time,
-          "duration" => $duration,
-          "password" => $password,
-          "settings" => [
-            "meeting_authentication" => true,
-          ]
-        ],
-      ]);
+            "headers" => [
+              "Authorization" => "Bearer " . $zoom_jwt
+            ],
+            'json' => [
+            "topic" => $topic,
+            "type" => 2,
+            'agenda' => $agenda,
+            "start_time" => $start_time,
+            "duration" => $duration,
+            "password" => $password,
+            "settings" => [
+              "meeting_authentication" => true,
+            ]
+          ],
+        ]
+      );
       $data = json_decode($response->getBody());
       return $data;
-    } catch(Exception $e) {
+    } catch (Exception $e) {
       return $e->getCode();
     }
   }
-
-  public function create_webinar() {
-
-  }
-  
 }
