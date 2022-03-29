@@ -513,7 +513,7 @@ class Routes
                     break;
 
                 default:
-                    $this->scripts = [['name' => 'check-gsignin'], ['name' => 'home-v1.0.0']];
+                    $this->scripts = [['name' => 'check-gsignin'], ['name' => 'home.min']];
                     $this->content = new Template("404");
                     break;
             }
