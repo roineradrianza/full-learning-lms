@@ -270,7 +270,7 @@ switch ($method) {
         }
 
         $results = $course->get($query);
-        if (empty($results[0]) || $results[0]['price'] > 1) {
+        if (empty($results[0]) || $results[0]['price'] < 1) {
             $helper->response_message('Error', 'No se pudo realizar la inscripción, el curso seleccionado no existe o no está gratis', 'error');
         }
 
