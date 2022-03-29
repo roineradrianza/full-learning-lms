@@ -310,7 +310,10 @@ switch ($method) {
         if (isset($data['meta']) && !empty($data['meta'])) {
             $data['meta'] = json_decode($data['meta'], true);
             foreach ($data['meta'] as $meta_key => $meta_value) {
-                $meta = ['course_meta_name' => $meta_key, 'course_meta_val' => $meta_value];
+                $meta = [
+                    'course_meta_name' => $meta_key, 
+                    'course_meta_val' => is_array($meta_value) ? json_encode($meta_value, JSON_UNESCAPED_UNICODE) : $meta_value, 
+                ];
                 if (isset($_FILE[$meta_key])) {
                     $tmp_file = $_FILES[$meta_key]['tmp_name'];
                     $ext = explode(".", $_FILES[$meta_key]['name']);
@@ -335,7 +338,11 @@ switch ($method) {
                 }
                 $check_meta = $course_meta->get_meta($id, $meta_key);
                 if (empty($check_meta)) {
-                    $meta_data = ['course_meta_name' => $meta_key, 'course_meta_val' => $meta_value, 'course_id' => $id];
+                    $meta_data = [
+                        'course_meta_name' => $meta_key, 
+                        'course_meta_val' => is_array($meta_value) ? json_encode($meta_value, JSON_UNESCAPED_UNICODE) : $meta_value, 
+                        'course_id' => $id
+                    ];
                     $course_meta->create($meta_data);
                     continue;
                 }

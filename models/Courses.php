@@ -19,15 +19,11 @@ class Course
 
     public function get($id = 0)
     {
-        if ($id != 0) {
-            $sql = "SELECT C.course_id, active, duration, price, featured_image, certified_template,
-            level, published_at, slug, title, category_id, subcategory_id, user_id, platform_owner, hide_avatar_preview 
-            FROM {$this->table} C LEFT JOIN {$this->course_category} CC ON CC.course_id = C.course_id WHERE C.{$this->id_column} = $id";
-        } else {
-            $sql = "SELECT C.course_id, active, duration, price, featured_image, certified_template,
-            level, published_at, slug, title, category_id, subcategory_id, user_id, platform_owner, hide_avatar_preview 
-            FROM {$this->table} C LEFT JOIN {$this->course_category} CC ON CC.course_id = C.course_id";
-        }
+        $sql = $sql = "SELECT C.course_id, active, duration, price, featured_image, certified_template,
+        level, published_at, slug, title, category_id, subcategory_id, user_id, platform_owner, hide_avatar_preview 
+        FROM {$this->table} C LEFT JOIN {$this->course_category} CC ON CC.course_id = C.course_id";
+
+        $sql .= !empty($id) ? " WHERE C.{$this->id_column} = $id" : '';
         $result = execute_query($sql);
         $arr = [];
         while ($row = $result->fetch_assoc()) {

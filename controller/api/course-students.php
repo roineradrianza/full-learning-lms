@@ -269,7 +269,7 @@ switch ($method) {
             $helper->response_message('Advertencia', 'Ninguna información fue recibida', 'warning');
         }
 
-        $results = $course->get($query);
+        $results = $course->get($data['course_id']);
         if (empty($results[0]) || $results[0]['price'] > 1) {
             $helper->response_message('Error', 'No se pudo realizar la inscripción, el curso seleccionado no existe o no está gratis', 'error');
         }
